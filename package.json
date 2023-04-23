@@ -12,13 +12,12 @@
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "wdio-eslinter-service": "^0.0.4",
     "wdio-html-nice-reporter": "^8.1.0",
     "wdio-wait-for": "^3.0.3"
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.ts",
     "prettify": "prettier . -w",
-    "lint": "eslint && yarn prettify"
+    "lint": "yarn prettify"
   }
 }

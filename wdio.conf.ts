@@ -1,17 +1,16 @@
-import type { Options } from "@wdio/types";
 import { join } from 'path'
 
-export const config: Options.Testrunner = {
+export const config: WebdriverIO.Config = {
   //
   // ====================
   // Runner Configuration
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
-  runner: "local",
+  runner: 'local',
   autoCompileOpts: {
     autoCompile: true,
     tsNodeOpts: {
-      project: "./tsconfig.json",
+      project: './tsconfig.json',
       transpileOnly: true,
     },
   },
@@ -33,7 +32,7 @@ export const config: Options.Testrunner = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ["./specs/**/*.ts"],
+  specs: ['./test/specs/**/*.ts'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -90,7 +89,7 @@ export const config: Options.Testrunner = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: 'info',
   //
   // Set specific log levels per logger
   // loggers:
@@ -130,17 +129,19 @@ export const config: Options.Testrunner = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: [[
-    'appium',
-    {
-      command: 'appium',
-      args: {
-        relaxedSecurity: true,
-        address: 'localhost',
-        log: './appium.log',
+  services: [
+    [
+      'appium',
+      {
+        command: 'appium',
+        args: {
+          relaxedSecurity: true,
+          address: 'localhost',
+          log: './appium.log',
+        },
       },
-    },
-  ], "eslinter"],
+    ],
+  ],
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
@@ -148,7 +149,7 @@ export const config: Options.Testrunner = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "mocha",
+  framework: 'mocha',
   //
   // The number of times to retry the entire specfile when it fails as a whole
   // specFileRetries: 1,
@@ -162,13 +163,13 @@ export const config: Options.Testrunner = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec", ["allure", { outputDir: "allure-results" }], "html-nice"],
+  reporters: ['spec', ['allure', { outputDir: 'allure-results' }], 'html-nice'],
 
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
   mochaOpts: {
-    ui: "bdd",
+    ui: 'bdd',
     timeout: 3 * 60 * 1000, // 3min
   },
   //
@@ -265,15 +266,15 @@ export const config: Options.Testrunner = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: async function (
-    test,
-    context,
-    { error, result, duration, passed, retries }
-  ) {
-    if (!passed) {
-      await browser.takeScreenshot();
-    }
-  },
+  // afterTest: async function (
+  //   test,
+  //   context,
+  //   { error, result, duration, passed, retries }
+  // ) {
+  //   if (!passed) {
+  //     await browser.takeScreenshot();
+  //   }
+  // },
 
   /**
    * Hook that gets executed after the suite has ended
@@ -324,4 +325,4 @@ export const config: Options.Testrunner = {
    */
   // onReload: function(oldSessionId, newSessionId) {
   // }
-};
+}

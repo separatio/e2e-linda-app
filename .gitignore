@@ -1,1 +1,4 @@
 node_modules/
+appium.log
+allure-results/
+reports/

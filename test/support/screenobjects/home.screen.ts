@@ -1,4 +1,4 @@
-import Screen from "./screen";
+import Screen from './screen'
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -8,15 +8,15 @@ class HomeScreen extends Screen {
    * define selectors using getter methods
    */
   public get inputUsername() {
-    return $("#username");
+    return $('#username')
   }
 
   public get inputPassword() {
-    return $("#password");
+    return $('#password')
   }
 
   public get btnSubmit() {
-    return $('button[type="submit"]');
+    return $('button[type="submit"]')
   }
 
   /**
@@ -24,10 +24,10 @@ class HomeScreen extends Screen {
    * e.g. to login using username and password
    */
   public async login(username: string, password: string) {
-    await this.inputUsername.setValue(username);
-    await this.inputPassword.setValue(password);
-    await this.btnSubmit.click();
+    await this.inputUsername.setValue(username)
+    await this.inputPassword.setValue(password)
+    await this.btnSubmit.click()
   }
 }
 
-export default new HomeScreen();
+export default new HomeScreen()
