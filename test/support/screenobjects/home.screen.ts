@@ -1,4 +1,4 @@
-import Screen from './screen'
+import Screen from './screen.ts'
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -7,26 +7,35 @@ class HomeScreen extends Screen {
   /**
    * define selectors using getter methods
    */
-  public get inputUsername() {
-    return $('#username')
+  private get firstMeditation() {
+    return $('~meditation0')
   }
 
-  public get inputPassword() {
-    return $('#password')
+  private get favouriteButton() {
+    return $('~favourite_button')
   }
 
-  public get btnSubmit() {
-    return $('button[type="submit"]')
+  private get backButton() {
+    return $('~Go back')
   }
 
-  /**
-   * a method to encapsule automation code to interact with the page
-   * e.g. to login using username and password
-   */
-  public async login(username: string, password: string) {
-    await this.inputUsername.setValue(username)
-    await this.inputPassword.setValue(password)
-    await this.btnSubmit.click()
+  public async favouritedMeditation(): Promise<WebdriverIO.Element> {
+    const favouriteList = await this.scrollToElement('favourites_list')
+    return favouriteList.$('~meditation0')
+  }
+
+  public async favouriteMeditation() {
+    await this.firstMeditation.click()
+    await this.favouriteButton.click()
+    await this.backButton.click()
+  }
+
+  public async unfavouriteMeditation() {
+    const favouritedMeditaiton = await this.favouritedMeditation()
+    await favouritedMeditaiton.click()
+
+    await this.favouriteButton.click()
+    await this.backButton.click()
   }
 }
 

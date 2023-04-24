@@ -1,5 +1,5 @@
-import Screen from './screen'
+import Screen from './screen.ts'
 
-class SettingsScreen extends Screen {}
+class SettingsScreen extends Screen { }
 
 export default new SettingsScreen()
