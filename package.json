@@ -16,7 +16,8 @@
     "wdio-wait-for": "^3.0.3"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts",
+    "test:local": "wdio run ./config/wdio.local.conf.ts",
+    "test:ci": "wdio run ./config/wdio.ci.conf.ts",
     "prettify": "prettier . -w",
     "lint": "yarn prettify"
   }
