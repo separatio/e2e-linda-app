@@ -36,14 +36,26 @@ jobs:
           yarn global add appium
           appium --version
 
-      - name: Set up Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: default
-          arch: x86
-          profile: Nexus 6
-          script: echo "Emulator started"
+      - name: Install Android SDK and create AVD
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk unzip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip
+          unzip commandlinetools-linux-7302050_latest.zip -d cmdline-tools
+          sudo mv cmdline-tools /usr/local/
+          sudo chown -R $USER:$USER /usr/local/cmdline-tools
+          echo "export PATH=\$PATH:/usr/local/cmdline-tools/tools/bin" >> ~/.bashrc
+          echo "export PATH=\$PATH:/usr/local/cmdline-tools/tools/lib" >> ~/.bashrc
+          source ~/.bashrc
+          sdkmanager --install "platform-tools" "platforms;android-30" "emulator" "system-images;android-30;google_apis;x86"
+          echo "no" | avdmanager create avd -n Nexus_6_API_30 -k "system-images;android-30;google_apis;x86" --device "Nexus 6"
+
+      - name: Start Android Emulator
+        run: |
+          source ~/.bashrc
+          emulator -avd Nexus_6_API_30 -no-window -no-audio -no-boot-anim -accel on &
+          sleep 30
+          adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
 
       - name: Run tests
         run: yarn test:ci
