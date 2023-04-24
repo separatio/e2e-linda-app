@@ -46,8 +46,10 @@ jobs:
           sudo chown -R $USER:$USER /usr/local/cmdline-tools
           echo "export PATH=\$PATH:/usr/local/cmdline-tools/tools/bin" >> ~/.bashrc
           echo "export PATH=\$PATH:/usr/local/cmdline-tools/tools/lib" >> ~/.bashrc
+          echo "export ANDROID_HOME=/usr/local/cmdline-tools" >> ~/.bashrc
+          echo "export ANDROID_SDK_ROOT=/usr/local/cmdline-tools" >> ~/.bashrc
           source ~/.bashrc
-          sdkmanager --install "platform-tools" "platforms;android-30" "emulator" "system-images;android-30;google_apis;x86"
+          yes | sdkmanager --install "platform-tools" "platforms;android-30" "emulator" "system-images;android-30;google_apis;x86"
           echo "no" | avdmanager create avd -n Nexus_6_API_30 -k "system-images;android-30;google_apis;x86" --device "Nexus 6"
 
       - name: Start Android Emulator
