@@ -1,4 +1,4 @@
-import Screen from './screen'
+import Screen from './screen.ts'
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -20,8 +20,8 @@ class HomeScreen extends Screen {
   }
 
   public async favouritedMeditation(): Promise<WebdriverIO.Element> {
-    const favouriteList = await this.scrollToElement('favourites_list');
-    return favouriteList.$('~meditation0');
+    const favouriteList = await this.scrollToElement('favourites_list')
+    return favouriteList.$('~meditation0')
   }
 
   public async favouriteMeditation() {
