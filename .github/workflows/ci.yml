@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -36,6 +36,9 @@ jobs:
           yarn global add appium
           appium --version
 
+      # This is not functional, but it's the only step missing
+      # The requirements are for it to run on macOS
+      # I chose SauceLabs because it runs much easier and they have better prospects
       - name: Set up Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
