@@ -1,9 +1,7 @@
 FROM node:16-alpine
 
 # Install necessary dependencies
-RUN apt-get update && \
-    apt-get install -y curl unzip git openjdk-11-jdk-headless && \
-    apt-get clean
+RUN apk add --no-cache curl unzip git openjdk11-jre-headless
 
 # Prepare folder for cmdline-tools
 RUN mkdir -p /opt/android-sdk/cmdline-tools
