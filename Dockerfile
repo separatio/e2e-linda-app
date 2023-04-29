@@ -26,6 +26,10 @@ RUN yes | sdkmanager --licenses && \
 RUN echo no | avdmanager create avd --force --name test --device "pixel_5" --package "system-images;android-30;google_apis;x86_64" && \
     emulator -avd test -no-window -no-audio &
 
+# Set up Appium
+RUN npm i -g appium@next && \
+    appium driver install uiautomator2
+
 # Set the working directory to /app
 WORKDIR /app
 
