@@ -3,10 +3,10 @@ name: Android Tests
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -47,9 +47,7 @@ jobs:
           arch: x86
           profile: Nexus 6
           script: echo "Emulator started"
-
-      - name: Run tests
-        run: yarn test:ci
+          run: yarn test:ci
 
       - name: Upload test results
         if: always()
