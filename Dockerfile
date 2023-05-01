@@ -42,4 +42,5 @@ COPY . .
 # Run the tests
 CMD emulator -avd Pixel_5_API_30 -no-window -no-audio -no-boot-anim -netdelay none -netspeed full & \
     sleep 30 && \
+    yarn install && \
     yarn test:local
