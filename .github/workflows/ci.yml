@@ -9,49 +9,31 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  TEST_TAG: user/app:test
+
 jobs:
-  test:
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      -
+        name: Checkout
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build image
+        uses: docker/build-push-action@v4
         with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'
-          java-version: 11
-
-      - name: Set up Appium
+          context: .
+          load: true
+          push: false
+          tags: ${{ env.TEST_TAG }}
+      -
+        name: Test
         run: |
-          yarn global add appium
-          appium --version
-
-      # This is not functional, but it's the only step missing
-      # The requirements are for it to run on macOS
-      # I chose SauceLabs because it runs much easier and they have better prospects
-      - name: Set up Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: default
-          arch: x86
-          profile: Nexus 6
-          script: echo "Emulator started"
-          run: yarn test:ci
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: ./results # Replace with the path to your test results
+          yarn docker:run
