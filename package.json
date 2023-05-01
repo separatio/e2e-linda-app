@@ -24,6 +24,7 @@
     "lint": "yarn prettify",
     "docker:build": "docker build -t android-tests .",
     "docker:run": "docker run -it --privileged --rm android-tests",
-    "docker:test": "yarn docker:build && yarn docker:run"
+    "docker:test": "yarn docker:build && yarn docker:run",
+    "docker:ci": "docker run --privileged --rm android-tests"
   }
 }
