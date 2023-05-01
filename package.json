@@ -21,6 +21,9 @@
     "test:ci": "wdio run ./config/wdio.ci.conf.ts",
     "test:sauce": "wdio run ./config/wdio.sauce.conf.ts",
     "prettify": "prettier . -w",
-    "lint": "yarn prettify"
+    "lint": "yarn prettify",
+    "docker:build": "docker build -t android-tests .",
+    "docker:run": "docker run -it --privileged --rm android-tests",
+    "docker:test": "yarn docker:build && yarn docker:run"
   }
 }
